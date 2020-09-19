@@ -15,16 +15,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".webdrive" />
+        <activity android:name=".webdrive"
+            android:label="Notes"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".TeacherActivity"
             android:label="@string/title_activity_teacher"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
-        <activity android:name=".Registration" />
+        <activity android:name=".Registration"
+            android:label="Register"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
+            android:label="Class Helper"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
