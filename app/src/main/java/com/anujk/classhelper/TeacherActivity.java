@@ -23,7 +23,6 @@ public class TeacherActivity extends AppCompatActivity
         setContentView(R.layout.activity_teacher);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,13 +31,11 @@ public class TeacherActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -66,12 +63,10 @@ public class TeacherActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -80,10 +75,9 @@ public class TeacherActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragment=getSupportFragmentManager();
+        FragmentManager fragment = getSupportFragmentManager();
         if (id == R.id.FirstLayout) {
-
-            fragment.beginTransaction().replace(R.id.content_frame,new timetable()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new timetable()).commit();
         } else if (id == R.id.SecondLayout) {
             fragment.beginTransaction().replace(R.id.content_frame, new Notes()).commit();
         } else if (id == R.id.ThirdLayout) {
@@ -95,7 +89,6 @@ public class TeacherActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

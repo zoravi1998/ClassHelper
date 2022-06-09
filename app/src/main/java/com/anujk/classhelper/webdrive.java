@@ -13,15 +13,18 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class webdrive extends AppCompatActivity {
-    WebView wv;Bundle b;String branch;
+    WebView wv;
+    Bundle b;
+    String branch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webdrive);
-        Intent intent=getIntent();
-        b=intent.getExtras();
-        branch=(String)b.get("type");
-        wv=findViewById(R.id.web_view);
+        Intent intent = getIntent();
+        b = intent.getExtras();
+        branch = (String) b.get("type");
+        wv = findViewById(R.id.web_view);
         /*getWindow().requestFeature(Window.FEATURE_PROGRESS);
         // Makes Progress bar Visible
         getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
@@ -39,7 +42,7 @@ public class webdrive extends AppCompatActivity {
         });*/
         wv.loadUrl("https://drive.google.com/drive/folders/1id0Jy5gy2ZLlDKthggFLzsg5IWSZrMHF?usp=sharing");
         wv.setWebViewClient(new client());
-        WebSettings ws=wv.getSettings();
+        WebSettings ws = wv.getSettings();
         ws.setJavaScriptEnabled(true);
         wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         wv.clearCache(true);
@@ -47,21 +50,19 @@ public class webdrive extends AppCompatActivity {
         wv.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-
-                DownloadManager.Request req= new DownloadManager.Request(Uri.parse(url));
+                DownloadManager.Request req = new DownloadManager.Request(Uri.parse(url));
                 req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                DownloadManager dm=(DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                 dm.enqueue(req);
-                Toast.makeText(getApplicationContext(),"Download Started !!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Download Started !!", Toast.LENGTH_SHORT).show();
 
 
             }
         });
-
     }
 
     private class client extends WebViewClient {
-
+        
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);

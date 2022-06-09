@@ -22,10 +22,11 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnClickListener {
 
-    Button login,register,student,teacher;
-    EditText uid,password;
-    public String portal="";
+    Button login, register, student, teacher;
+    EditText uid, password;
+    public String portal = "";
     int MY_PERMISSIONS_REQUEST_STORAGE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +43,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnCli
             }
         });
         {
-            uid=(EditText)(findViewById(R.id.reg_id));
-            password=(EditText)findViewById(R.id.pass);
-            login=(Button)findViewById(R.id.btn_login);
-            register=(Button)findViewById(R.id.btn_reg);
-            student=(Button)findViewById(R.id.btn_stu);
-            teacher=(Button)findViewById(R.id.btn_teacher);
+            uid = (EditText) (findViewById(R.id.reg_id));
+            password = (EditText) findViewById(R.id.pass);
+            login = (Button) findViewById(R.id.btn_login);
+            register = (Button) findViewById(R.id.btn_reg);
+            student = (Button) findViewById(R.id.btn_stu);
+            teacher = (Button) findViewById(R.id.btn_teacher);
             login.setOnClickListener(this);
             register.setOnClickListener(this);
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnCli
                 // result of the request.
             }
         } else {
-            Toast t=Toast.makeText(this,"FILE STORAGE GRANTED",Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(this, "FILE STORAGE GRANTED", Toast.LENGTH_LONG);
             t.show();
         }
     }
@@ -103,53 +104,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnCli
 
     public void studentClick(View v) {
 
-        portal="student";
+        portal = "student";
 
     }
-    public void teacherClick(View v){
-        portal="teacher";
+
+    public void teacherClick(View v) {
+        portal = "teacher";
     }
 
     @Override
     public void onClick(View v) {
-        if(portal.equals("student")) {
+        if (portal.equals("student")) {
             if (v.getId() == R.id.btn_login) {
                 Intent intent = new Intent(this, Main2Activity.class);
                 BackgroundWorker bw = new BackgroundWorker(this);
-                String uname, pass, type, result = "",type1=portal;
+                String uname, pass, type, result = "", type1 = portal;
                 uname = uid.getText().toString();
                 pass = password.getText().toString();
                 type = "login";
                 try {
-                    result = bw.execute(type1,type, uname, pass).get();
+                    result = bw.execute(type1, type, uname, pass).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 if (result.equals("login success")) {
-                    intent.putExtra("portal",portal);
-                    intent.putExtra("username",uname);
+                    intent.putExtra("portal", portal);
+                    intent.putExtra("username", uname);
                     startActivity(intent);
                 }
 
             }
             if (v.getId() == R.id.btn_reg) {
                 Intent intent = new Intent(this, Registration.class);
-                intent.putExtra("type",portal);
+                intent.putExtra("type", portal);
                 startActivity(intent);
             }
-        }
-        else if(portal.equals("teacher")){
+        } else if (portal.equals("teacher")) {
             if (v.getId() == R.id.btn_login) {
                 Intent intent = new Intent(this, TeacherActivity.class);
                 BackgroundWorker bw = new BackgroundWorker(this);
-                String uname, pass, type, result = "",type1="";
+                String uname, pass, type, result = "", type1 = "";
                 uname = uid.getText().toString();
                 pass = password.getText().toString();
                 type = "login";
                 try {
-                    result = bw.execute(type1,type, uname, pass).get();
+                    result = bw.execute(type1, type, uname, pass).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -162,13 +163,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnCli
             }
             if (v.getId() == R.id.btn_reg) {
                 Intent intent = new Intent(this, Registration.class);
-                intent.putExtra("type",portal);
+                intent.putExtra("type", portal);
                 startActivity(intent);
             }
-        }
-        else
-        {
-            Toast t=Toast.makeText(this,"NO PORTAL SELECTED",Toast.LENGTH_SHORT);
+        } else {
+            Toast t = Toast.makeText(this, "NO PORTAL SELECTED", Toast.LENGTH_SHORT);
             t.show();
         }
 
