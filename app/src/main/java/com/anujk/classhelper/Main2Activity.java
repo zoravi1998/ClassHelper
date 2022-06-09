@@ -14,15 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String data[]=new String[7];
+    public static String data[] = new String[7];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,38 +51,36 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         collectData();
-        Toast.makeText(this,"!!! WELCOME "+data[1]+"!!!",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "!!! WELCOME " + data[1] + "!!!", Toast.LENGTH_LONG).show();
     }
 
 
     private void collectData() {
-        String portal=getIntent().getExtras().get("portal").toString();
-        String regid=getIntent().getExtras().get("username").toString();
-        BackgroundWorker bw=new BackgroundWorker(this);
-        String result= "";
+        String portal = getIntent().getExtras().get("portal").toString();
+        String regid = getIntent().getExtras().get("username").toString();
+        BackgroundWorker bw = new BackgroundWorker(this);
+        String result = "";
         try {
-            result=bw.execute(portal,"read",regid).get();
-            JSONObject jo=new JSONObject(result);
-            int a=jo.getInt("success");
-            if(a==1){
-                JSONArray details= jo.getJSONArray("details");
-                for(int i=0;i<details.length();i++){
-                    JSONObject details1=details.getJSONObject(i);
-                    data[1]=details1.getString("name");
-                    data[2]=details1.getString("reg_id");
-                    data[3]=details1.getString("branch");
-                    data[4]=details1.getString("year");
-                    data[5]=details1.getString("section");
-                    data[6]=details1.getString("birth_date");
+            result = bw.execute(portal, "read", regid).get();
+            JSONObject jo = new JSONObject(result);
+            int a = jo.getInt("success");
+            if (a == 1) {
+                JSONArray details = jo.getJSONArray("details");
+                for (int i = 0; i < details.length(); i++) {
+                    JSONObject details1 = details.getJSONObject(i);
+                    data[1] = details1.getString("name");
+                    data[2] = details1.getString("reg_id");
+                    data[3] = details1.getString("branch");
+                    data[4] = details1.getString("year");
+                    data[5] = details1.getString("section");
+                    data[6] = details1.getString("birth_date");
                 }
-            }
-            else{
-                Toast.makeText(this,"No data fetched",Toast.LENGTH_LONG);
+            } else {
+                Toast.makeText(this, "No data fetched", Toast.LENGTH_LONG);
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        catch (ExecutionException e) {
+        } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -124,9 +125,9 @@ public class Main2Activity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-            FragmentManager fragment=getSupportFragmentManager();
+        FragmentManager fragment = getSupportFragmentManager();
         if (id == R.id.FirstLayout) {
-            fragment.beginTransaction().replace(R.id.content_frame,new timetable()).commit();
+            fragment.beginTransaction().replace(R.id.content_frame, new timetable()).commit();
         } else if (id == R.id.SecondLayout) {
             fragment.beginTransaction().replace(R.id.content_frame, new Notes()).commit();
         } else if (id == R.id.ThirdLayout) {
